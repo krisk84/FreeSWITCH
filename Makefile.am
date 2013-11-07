@@ -117,7 +117,7 @@ CORE_LIBS += libs/sqlite/libsqlite3.la libs/pcre/libpcre.la libs/speex/libspeex/
 
 if ENABLE_SRTP
 CORE_CFLAGS += -DENABLE_SRTP
-CORE_LIBS += libs/srtp/libsrtp.la
+CORE_LIBS += libs/srtp/libsrtp.a
 endif
 
 MOD_LINK      = $(switch_srcdir)/libfreeswitch.la
@@ -511,9 +511,9 @@ SRTP_SRC =	libs/srtp/srtp/srtp.c libs/srtp/srtp/ekt.c libs/srtp/crypto/cipher/ci
 		libs/srtp/crypto/kernel/err.c libs/srtp/crypto/rng/rand_source.c \
 		libs/srtp/crypto/replay/rdb.c libs/srtp/crypto/replay/rdbx.c libs/srtp/crypto/replay/ut_sim.c 
 
-libs/srtp/libsrtp.la: libs/srtp libs/srtp/.update $(SRTP_SRC)
+libs/srtp/libsrtp.a: libs/srtp libs/srtp/.update $(SRTP_SRC)
 	touch src/include/switch.h
-	@cd libs/srtp && $(MAKE)
+	@cd libs/srtp && ./configure --enable-openssl && $(MAKE) libsrtp.a
 	@$(TOUCH_TARGET)
 
 ##

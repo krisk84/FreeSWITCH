@@ -1,6 +1,15 @@
 /*
+ * aes_gcm_ossl.h
+ *
+ * Header for AES Galois Counter Mode.
+ *
+ * John A. Foley
+ * Cisco Systems, Inc.
+ *
+ */
+/*
  *	
- * Copyright (c) 2001-2005 Cisco Systems, Inc.
+ * Copyright (c) 2013, Cisco Systems, Inc.
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,3 +42,21 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+#ifndef AES_GCM_OSSL_H
+#define AES_GCM_OSSL_H
+
+#include "cipher.h"
+#include <openssl/evp.h>
+#include <openssl/aes.h>
+
+typedef struct {
+  v256_t   key;
+  int      key_size;
+  int      tag_len;
+  EVP_CIPHER_CTX ctx;
+  cipher_direction_t dir;
+} aes_gcm_ctx_t;
+
+#endif /* AES_GCM_OSSL_H */
+

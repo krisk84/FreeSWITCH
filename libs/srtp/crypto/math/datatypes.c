@@ -152,9 +152,7 @@ hex_char_to_nibble(uint8_t c) {
   default: return -1;   /* this flags an error */
   }
   /* NOTREACHED */
-#ifndef WIN32
   return -1;  /* this keeps compilers from complaining */
-#endif
 }
 
 int
@@ -181,7 +179,7 @@ hex_string_to_octet_string(char *raw, char *hex, int len) {
     tmp = hex_char_to_nibble(hex[0]);
     if (tmp == -1)
       return hex_len;
-    x = (uint8_t)(tmp << 4);
+    x = (tmp << 4);
     hex_len++;
     tmp = hex_char_to_nibble(hex[1]);
     if (tmp == -1)
@@ -706,7 +704,7 @@ base64_string_to_octet_string(char *raw, char *base64, int len) {
     tmp = base64_char_to_sextet(base64[0]);
     if (tmp == -1)
       return base64_len;
-    x = (uint8_t)(tmp << 6);
+    x = (tmp << 6);
     base64_len++;
     tmp = base64_char_to_sextet(base64[1]);
     if (tmp == -1)
